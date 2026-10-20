@@ -8,6 +8,8 @@
 
 The live service responds successfully. Its SQLite data may not survive a service restart unless a persistent disk is mounted at `/data`; hosted persistence has not been confirmed.
 
+## Demo Video
+[https://drive.google.com/file/d/1mG7GlfOB39sI3YHIahpdQlkvIWGoJ44K/view?usp=sharing](https://drive.google.com/file/d/1mG7GlfOB39sI3YHIahpdQlkvIWGoJ44K/view?usp=sharing)
 ## Run locally
 
 **Requirements:** Node.js 22.13 or newer and npm.
