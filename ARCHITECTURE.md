@@ -41,24 +41,24 @@ flowchart TB
 ```mermaid
 sequenceDiagram
     actor Writer
-    participant UI as Browser editor
-    participant API as Express API
-    participant Guard as Role check + sanitizer
-    participant DB as SQLite
-    Writer->>UI: Create or import a document
-    UI->>API: POST /api/docs or /api/upload
-    API->>Guard: Validate title / convert and sanitize content
-    Guard->>DB: Insert document with owner
-    DB-->>UI: Document ID
-    Writer->>UI: Edit document
-    UI->>UI: Debounce edits; show save state
-    UI->>API: PUT /api/docs/:id
-    API->>Guard: Resolve owner/editor/viewer; reject unauthorized write
-    Guard->>DB: Store sanitized HTML and updated timestamp
-    Writer->>UI: Share with a seeded teammate
-    UI->>API: POST /api/docs/:id/share
-    API->>Guard: Require owner role
-    Guard->>DB: Upsert share role
+    participant Browser
+    participant Server as Express server
+    participant Policy as Access check and sanitizer
+    participant Store as SQLite database
+    Writer->>Browser: Create or import document
+    Browser->>Server: Create or upload request
+    Server->>Policy: Validate and sanitize content
+    Policy->>Store: Save document and owner
+    Store-->>Browser: Return document ID
+    Writer->>Browser: Edit document
+    Browser->>Browser: Debounce edits and show save status
+    Browser->>Server: Save document changes
+    Server->>Policy: Check owner or editor role
+    Policy->>Store: Save sanitized content
+    Writer->>Browser: Share with a teammate
+    Browser->>Server: Request a share change
+    Server->>Policy: Require owner role
+    Policy->>Store: Save teammate access role
 ```
 
 The `users`, `documents`, and `shares` tables store identity, document content, and access grants. The server resolves a document role for every document operation. An unshared document is returned as 404, viewers cannot write, and only owners may rename, delete, or manage shares. Editors can update content but cannot change the title.
