@@ -1,25 +1,16 @@
 # Ajaia Docs
 
-**A considered workspace for writing, organizing, and sharing team documents.**
+**A calm, capable workspace for writing and sharing team documents.**
 
-Ajaia Docs is a full-stack product slice created for the Ajaia Full Stack Product Engineer assignment. It brings a focused document editor, file import, simple collaboration permissions, and persistent storage together in a build-free Node.js application. The editor defaults to a more readable 22px page font; the page text controls let each browser adjust it further.
-
-> **Assignment status:** Core product features and automated tests are implemented. The public source repository is available at [github.com/Asijain019/ajaia-docs](https://github.com/Asijain019/ajaia-docs). The product still needs to be deployed and the walkthrough recorded by the submitter.
-
-## At a glance
-
-| | |
+| Live product | Source |
 |---|---|
-| **Stack** | Node.js, Express, SQLite, vanilla JavaScript |
-| **Requirements** | Node.js 22.13+, npm |
-| **Editor** | Rich text, formatting, autosave, templates |
-| **Import** | `.txt`, `.md`, `.docx` · 5 MB maximum |
-| **Collaboration** | Owner, editor, and viewer roles |
-| **Run locally** | `npm ci` then `npm start` |
+| [ajaia-docs-9w27.onrender.com](https://ajaia-docs-9w27.onrender.com) | [github.com/Asijain019/ajaia-docs](https://github.com/Asijain019/ajaia-docs) |
 
-## Start locally
+The live service responds successfully. Its SQLite data may not survive a service restart unless a persistent disk is mounted at `/data`; hosted persistence has not been confirmed.
 
-Open PowerShell in the repository folder:
+## Run locally
+
+**Requirements:** Node.js 22.13 or newer and npm.
 
 ```powershell
 cd ajaia-docs
@@ -27,107 +18,49 @@ npm ci
 npm start
 ```
 
-Visit [http://localhost:3000](http://localhost:3000). Keep that terminal open while using the app. To stop the server, press **Ctrl+C**.
+Open [http://localhost:3000](http://localhost:3000). Keep the terminal running while using the application; press **Ctrl+C** to stop the server. Run checks in another terminal with `npm test`. There is no frontend build step.
 
-Run the automated tests from a second terminal in the same folder:
+Optional settings: `PORT` (default `3000`) and `DB_FILE` (default `./data.db`).
 
-```powershell
-npm test
-```
+## Try the product
 
-No frontend build step is required. The server uses Node’s built-in `node:sqlite`.
+Sign-in uses simulated demo accounts with no passwords. Do not store private or sensitive documents.
 
-| Environment variable | Default | Description |
-|---|---:|---|
-| `PORT` | `3000` | HTTP port |
-| `DB_FILE` | `./data.db` | SQLite database file |
-
-## Try the sharing flow
-
-Sign-in is simulated for this assignment. Select a seeded profile; no password is required.
-
-| Profile | Demo email |
+| Profile | Email |
 |---|---|
 | Alice Chen | `alice@example.com` |
 | Bob Okafor | `bob@example.com` |
 | Carol Singh | `carol@example.com` |
 
-1. Sign in as Alice and create or open a document.
-2. Select **Share**, enter `bob@example.com`, and grant **Can edit** or **Can view**.
-3. Open a private window and sign in as Bob to see the shared document and verify the role.
+To test sharing, sign in as Alice, create a document, select **Share**, and grant Bob **Can edit** or **Can view**. Sign in as Bob in a second browser window to see the shared document and role restrictions.
 
-The demo accounts are not real users. Do not store private or sensitive information in this application.
-
-## Product capabilities
+## Features
 
 - Create, rename, edit, autosave, reopen, duplicate, and delete documents.
-- Format selected text with bold, italic, underline, font sizes, text colors, and highlight colors.
-- Set paragraph styles and left, center, right, or justified alignment; use lists, indentation, undo, and redo.
-- Import `.txt`, `.md`, and `.docx` files into editable documents. The UI and server enforce the 5 MB limit.
-- Share with an existing demo user as editor or viewer. Owners can change or revoke access.
-- Search document titles and favorite documents in the current browser.
-- Start from meeting notes, project brief, or weekly update templates.
-- Switch light/dark appearance, see word and character counts, print/save through the browser, or export Markdown.
-- Adjust overall page reading size from 18px to 30px (22px default), independently of formatting selected text.
-- Persist document content and sharing records in SQLite; sanitize editor HTML on the server.
+- Format selected text: bold, italic, underline, font size, text color, highlight; set paragraph styles and alignment; create lists; undo and redo.
+- Adjust the overall document reading size from 18px to 30px (22px default).
+- Import `.txt`, `.md`, and `.docx` files into editable documents (5 MB maximum).
+- Share with seeded users as editor or viewer; owners can update and revoke access.
+- Search document titles; favorite documents in the current browser; start from meeting, project, and weekly-update templates.
+- Switch light/dark appearance, view word and character counts, print/save from the browser, and export Markdown.
+- Persist documents and shares in SQLite; sanitize saved HTML with an allow-list.
 
-Markdown conversion intentionally supports a subset of Markdown syntax. Favorites and appearance preferences are local to the browser and account.
-
-## How the document flow works
-
-```mermaid
-flowchart LR
-    A[Choose demo profile] --> B[Create or import document]
-    B --> C[Edit and format]
-    C --> D[Debounced autosave]
-    D --> E[Express API]
-    E --> F[Sanitize HTML]
-    F --> G[(SQLite)]
-    G --> H[Reopen after refresh]
-    G --> I[Share with editor or viewer]
-    I --> J[Server checks role on every request]
-```
-
-## Deploy on Render
-
-The repository includes a Dockerfile and a Render Blueprint file. Render is the intended path for this Express + SQLite app; Vercel’s ephemeral serverless filesystem is not a drop-in fit for the local SQLite database.
-
-1. Push the repository to GitHub. The current public source repository is [Asijain019/ajaia-docs](https://github.com/Asijain019/ajaia-docs).
-2. In Render, choose **New → Blueprint**, connect that repository, and deploy the detected `render.yaml`.
-3. Wait for the service to finish deploying, then open its `onrender.com` URL and try the Alice/Bob sharing flow.
-4. The server now creates the SQLite parent directory on startup. The container stores the database at `/data/data.db`. For data to survive service restarts or redeploys, attach a persistent disk mounted at `/data` using a Render plan that supports disks. Check the current plan and disk pricing in Render before enabling one.
-5. Add the final live URL to `SUBMISSION.md` and your Google Drive submission folder.
-
-The included Blueprint uses the free web-service plan and does **not** create a persistent disk. Without a disk, SQLite data may be lost when the service restarts or redeploys. The public demo login is not real authentication; do not treat this deployment as a production or private-document service.
-
-### Push later changes to GitHub
-
-From PowerShell in the project folder:
-
-```powershell
-git add .
-git commit -m "Describe the update"
-git push origin master
-```
-
-## Automated checks
-
-`npm test` runs seven tests covering document access and sharing roles, validation and HTML sanitization, safe rich-text style persistence, Markdown import and conversion, public demo-account loading (including stale cookies), file-backed database setup, and Markdown export access.
-
-## Known limitations and next steps
-
-**Working:** document editing and persistence, supported formatting, file import, demo sharing roles, search, templates, favorites, duplicate, printing, Markdown export, and six automated tests.
-
-**Incomplete:** real authentication, external invitations, simultaneous-edit conflict handling, real-time collaboration, version history, comments, hosted deployment verification, and the recorded walkthrough.
-
-**Next:** replace the simulated account selector with real authentication and invitations; add version-aware saves; move to a maintained editor; add browser end-to-end tests.
+Markdown conversion deliberately supports a subset of Markdown. Favorites and appearance preferences are stored in the browser.
 
 ## Assignment handoff
 
-The other required submission notes are intentionally separate files:
+The submission bundle also includes:
 
-- [Architecture note](ARCHITECTURE.md) — system overview and Mermaid architecture diagrams.
-- [AI workflow note](AI_WORKFLOW.md) — tools, judgment, and verification.
-- [Submission checklist](SUBMISSION.md) — included deliverables and the links you still need to add.
+- [Architecture](ARCHITECTURE.md) — system diagrams, data flow, deployment path, and tradeoffs.
+- [AI workflow](AI_WORKFLOW.md) — tools used, engineering judgment, and verification.
+- [Submission checklist](SUBMISSION.md) — exact contents, reviewer accounts, live URL, and remaining video/Drive steps.
 
-The walkthrough URL placeholder file has been removed as requested. After recording your video, create a `VIDEO_URL.txt` containing its unlisted URL and add it to the source/Drive folder. Add screenshots or a short GIF only if your final deployed setup needs special reviewer instructions.
+The walkthrough video and Google Drive folder are still to be added by the submitter. Record a 3–5 minute walkthrough and add its unlisted URL to the Drive folder.
+
+## Known limitations
+
+- Demo authentication is simulated and unsuitable for production or sensitive data.
+- Sharing only supports seeded users; there is no external invitation flow.
+- Saving is last-write-wins; real-time editing, version history, comments, and conflict handling are not implemented.
+- The editor uses browser `contenteditable` and deprecated `execCommand`.
+- SQLite persistence on the hosted service depends on its Render disk configuration.

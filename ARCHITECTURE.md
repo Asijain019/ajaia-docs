@@ -79,15 +79,15 @@ Favorites and the light/dark appearance preference are stored in `localStorage`,
 flowchart LR
     Dev[Local source] --> Commit[Git commit]
     Commit --> GitHub[Public GitHub repository]
-    GitHub --> Blueprint[Render Blueprint]
-    Blueprint --> Container[Node 22 Docker service]
+    GitHub --> Service[Live Render service]
+    Service --> Container[Node 22 Docker service]
     Container --> App[Express app]
     App --> Disk[(SQLite at /data/data.db)]
     Note[Persistent disk mounted at /data<br/>required to retain data through restarts]
     Note -. configure in Render .-> Disk
 ```
 
-The server creates the configured SQLite parent directory at startup. The Render Blueprint creates a free web service but does not provision a disk. A persistent disk mounted at `/data` is required for SQLite data to survive service restarts/redeploys; check the current Render plan and pricing. The Vercel serverless filesystem is ephemeral and is not a drop-in storage solution for this SQLite app.
+The live service is available at [https://ajaia-docs-9w27.onrender.com](https://ajaia-docs-9w27.onrender.com). The server creates the configured SQLite parent directory at startup. The Render service stores SQLite at `/data/data.db`; a persistent disk mounted at `/data` is required for records to survive service restarts/redeploys. The current disk configuration has not been verified. The Vercel serverless filesystem is ephemeral and is not a drop-in storage solution for this SQLite app.
 
 ## Deliberate tradeoffs
 
