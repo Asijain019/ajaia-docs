@@ -15,7 +15,7 @@ export function clean(html) {
       '*': {
         color: safeColor,
         'background-color': [...safeColor, /^transparent$/i],
-        'font-size': [/^(?:12|14|16|18|20|24|28|32|36|48)px$/],
+        'font-size': [/^(?:12|14|16|18|20|22|24|28|32|36|48)px$/],
         'text-align': [/^(?:left|center|right|justify)$/],
       },
     },

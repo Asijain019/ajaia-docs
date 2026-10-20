@@ -65,9 +65,9 @@ The `users`, `documents`, and `shares` tables store identity, document content, 
 
 ## Editor and content safety
 
-The browser uses `contenteditable` and the browser’s formatting commands to avoid a frontend dependency/build step. Formatting includes paragraph styles, alignment, selected-text font size, text color, highlight, emphasis, lists, and indentation. Autosave is debounced and reports save status; it is last-write-wins and does not resolve simultaneous edits.
+The browser uses `contenteditable` and the browser’s formatting commands to avoid a frontend dependency/build step. Formatting includes paragraph styles, alignment, selected-text font size, text color, highlight, emphasis, lists, and indentation. The base page reading size defaults to 22px and can be adjusted between 18px and 30px; that preference is stored locally in the browser. Autosave is debounced and reports save status; it is last-write-wins and does not resolve simultaneous edits.
 
-The server sanitizes all editor and imported HTML before persistence. The sanitizer allows only needed structure and tightly constrained styles: supported pixel font sizes, hex/RGB colors, and standard text alignment values. It removes unsupported attributes and CSS. Imported files become new editable documents owned by the uploader.
+The server sanitizes all editor and imported HTML before persistence. The sanitizer allows only needed structure and tightly constrained styles: supported pixel font sizes (including the 22px option), hex/RGB colors, and standard text alignment values. It removes unsupported attributes and CSS. Imported files become new editable documents owned by the uploader.
 
 ## Browser-local state
 

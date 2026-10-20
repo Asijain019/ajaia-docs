@@ -61,6 +61,7 @@ test('converters', () => {
   assert.match(styled, /color:#167454/);
   assert.match(styled, /font-size:24px/);
   assert.match(styled, /background-color:#fff2b3/);
+  assert.match(clean('<span style="font-size:22px">Readable</span>'), /font-size:22px/);
   assert.match(clean('<span style="background-color:rgb(255, 242, 179);color:rgb(22, 116, 84)">RGB color</span>'), /rgb\(255, 242, 179\)/);
   assert.doesNotMatch(styled, /background-image|javascript:/);
   assert.doesNotMatch(clean('<span style="font-size:999px;color:red">Unsafe</span>'), /font-size|color:/);

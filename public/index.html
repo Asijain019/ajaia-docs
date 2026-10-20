@@ -21,6 +21,19 @@
 .login-page{height:100%;min-height:550px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);background:var(--surface)}.login-story{padding:8vw;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(ellipse at 20% 20%,#dff2e5 0,transparent 48%),linear-gradient(145deg,#f3f8f3,#e7f1ea);color:#192c21}.login-story .brand{padding:0;margin-bottom:62px}.login-story h1{max-width:520px;font-size:clamp(34px,4vw,57px);line-height:1.08;letter-spacing:-2px;margin:0 0 18px}.login-story p{max-width:450px;color:#66776c;font-size:15px}.login-stamp{margin-top:40px;color:#63776a;font-size:11px;letter-spacing:.3px}.login-card-wrap{display:grid;place-items:center;padding:38px}.login-card{width:min(400px,100%)}.login-card h2{font-size:24px;letter-spacing:-.7px;margin:0 0 6px}.login-card>p{font-size:12px;color:var(--muted);margin:0 0 22px}.login-account{display:flex;align-items:center;gap:12px;text-align:left;width:100%;padding:12px;border:1px solid var(--line);background:var(--surface);border-radius:11px;margin:9px 0;transition:border-color .15s,transform .15s}.login-account:hover{border-color:var(--accent);transform:translateY(-1px)}.login-account .account-details{flex:1;font-size:12px;font-weight:680}.login-account small{display:block;font-size:10px;color:var(--muted);font-weight:450}.login-account .arrow{color:var(--muted);font-size:16px}
 @media(max-width:980px){.sidebar{width:260px;flex-basis:260px;padding-left:13px;padding-right:13px}.topbar{padding:0 18px;gap:9px}.formatbar{padding:9px 16px}.doc-title{width:min(300px,30vw)}.editor-scroll{padding:24px 17px 42px}.page{padding:64px 68px 74px}.status{display:none}}
 @media(max-width:680px){#app{flex-direction:column}.sidebar{width:auto;flex:0 0 auto;max-height:43%;padding:12px 12px 8px;border-right:0;border-bottom:1px solid var(--line)}.brand{padding:0 4px 12px}.side-actions{margin-bottom:10px}.doc-lists{max-height:120px}.nav-label{margin-top:8px}.side-bottom{display:none}.topbar{height:auto;min-height:58px;padding:8px 12px;flex-wrap:wrap}.crumb{display:none}.doc-title{width:calc(100% - 100px);font-size:16px}.top-actions{margin-left:auto}.top-actions .optional{display:none}.formatbar{gap:2px;padding:6px 8px}.formatbar .sep{margin:0 2px}.formatbar button,.formatbar select{padding:0 7px}.formatbar .format-select{min-width:110px}.editor-scroll{padding:12px 8px 24px}.page{min-height:780px;padding:38px 25px;font-size:17px}.editor-footer{padding:0 12px}.login-page{display:block}.login-story{display:none}.login-card-wrap{min-height:100%;padding:28px}.quick-grid{grid-template-columns:1fr}.welcome h1{font-size:28px}.welcome-actions{flex-wrap:wrap}.template-grid{grid-template-columns:1fr}}
+body{font-size:17px}
+.brand{font-size:19px}.brand small{font-size:13px}
+.btn{font-size:15px;min-height:44px}
+.nav-label,.nav-label .count{font-size:13px}
+.item .t{font-size:15px}.item .m{font-size:13px}
+.user-meta{font-size:15px}.user-meta small{font-size:13px}
+.crumb{font-size:14px}.status{font-size:14px}.role-pill{font-size:13px}
+.formatbar button,.formatbar select{font-size:15px;height:40px}.formatbar .format-select{font-size:15px}
+.editor-scroll{padding-top:40px}
+.page{font-size:var(--reader-size,22px);line-height:1.85}
+.page h1{font-size:40px}.page h2{font-size:31px}.page h3{font-size:25px}
+.editor-footer{font-size:13px}
+@media(max-width:680px){.page{font-size:var(--reader-size,22px);padding:38px 25px}.page h1{font-size:34px}.page h2{font-size:27px}.page h3{font-size:23px}.formatbar button,.formatbar select{font-size:14px}}
 @media print{body{background:#fff}.sidebar,.topbar,.formatbar,.editor-footer{display:none!important}.workspace,.editor-scroll{display:block;height:auto;overflow:visible;padding:0}.page{width:100%;min-height:0;border:0;box-shadow:none;padding:0;margin:0;color:#111}}
 </style>
 </head>
@@ -91,7 +104,7 @@
           <option value="p">Normal text</option><option value="h1">Title</option><option value="h2">Heading 1</option><option value="h3">Heading 2</option><option value="blockquote">Quote</option>
         </select>
         <select id="fontSize" class="font-size-select" aria-label="Font size" title="Select text, then choose a font size">
-          <option value="12">12 px</option><option value="14">14 px</option><option value="16">16 px</option><option value="18" selected>18 px</option><option value="20">20 px</option><option value="24">24 px</option><option value="28">28 px</option><option value="32">32 px</option><option value="36">36 px</option><option value="48">48 px</option>
+          <option value="12">12 px</option><option value="14">14 px</option><option value="16">16 px</option><option value="18">18 px</option><option value="20" selected>20 px</option><option value="22">22 px</option><option value="24">24 px</option><option value="28">28 px</option><option value="32">32 px</option><option value="36">36 px</option><option value="48">48 px</option>
         </select>
         <span class="sep"></span>
         <button data-cmd="bold" class="tool-strong" title="Bold (Ctrl+B)">B</button><button data-cmd="italic" class="tool-italic" title="Italic (Ctrl+I)">I</button><button data-cmd="underline" class="tool-under" title="Underline (Ctrl+U)">U</button>
@@ -170,14 +183,14 @@ function toggleFavorite(id) { const items = favorites(), next = items.includes(i
 function theme() { return localStorage.getItem('ajaia-theme') || 'light'; }
 function setTheme(value) { document.documentElement.dataset.theme = value; localStorage.setItem('ajaia-theme', value); }
 setTheme(theme());
-function readerSize() { const size = Number(localStorage.getItem('ajaia-reader-size')); return [18, 20, 22, 24, 26, 28].includes(size) ? size : 20; }
+function readerSize() { const size = Number(localStorage.getItem('ajaia-reader-size')); return [18, 20, 22, 24, 26, 28, 30].includes(size) ? size : 22; }
 function setReaderSize(size) {
-  const next = Math.min(28, Math.max(18, size));
+  const next = Math.min(30, Math.max(18, size));
   document.documentElement.style.setProperty('--reader-size', `${next}px`);
   localStorage.setItem('ajaia-reader-size', String(next));
   $('#readerSize').textContent = `${next} px`;
   $('#readerSmaller').disabled = next === 18;
-  $('#readerLarger').disabled = next === 28;
+  $('#readerLarger').disabled = next === 30;
 }
 setReaderSize(readerSize());
 

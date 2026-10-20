@@ -2,7 +2,7 @@
 
 **A considered workspace for writing, organizing, and sharing team documents.**
 
-Ajaia Docs is a full-stack product slice created for the Ajaia Full Stack Product Engineer assignment. It brings a focused document editor, file import, simple collaboration permissions, and persistent storage together in a build-free Node.js application.
+Ajaia Docs is a full-stack product slice created for the Ajaia Full Stack Product Engineer assignment. It brings a focused document editor, file import, simple collaboration permissions, and persistent storage together in a build-free Node.js application. The editor defaults to a more readable 22px page font; the page text controls let each browser adjust it further.
 
 > **Assignment status:** Core product features and automated tests are implemented. The public source repository is available at [github.com/Asijain019/ajaia-docs](https://github.com/Asijain019/ajaia-docs). The product still needs to be deployed and the walkthrough recorded by the submitter.
 
@@ -68,6 +68,7 @@ The demo accounts are not real users. Do not store private or sensitive informat
 - Search document titles and favorite documents in the current browser.
 - Start from meeting notes, project brief, or weekly update templates.
 - Switch light/dark appearance, see word and character counts, print/save through the browser, or export Markdown.
+- Adjust overall page reading size from 18px to 30px (22px default), independently of formatting selected text.
 - Persist document content and sharing records in SQLite; sanitize editor HTML on the server.
 
 Markdown conversion intentionally supports a subset of Markdown syntax. Favorites and appearance preferences are local to the browser and account.

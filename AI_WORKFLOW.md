@@ -20,7 +20,7 @@ flowchart LR
 
 ## Where AI accelerated the work
 
-AI helped scaffold the Express/SQLite API, the initial editor UI, file converters, HTML sanitization, test suite, and documentation. Follow-up work used AI to quickly iterate on workspace layout and add starter templates, title search, local favorites, duplicate, print, writing statistics, and word-processor-style formatting controls.
+AI helped scaffold the Express/SQLite API, the initial editor UI, file converters, HTML sanitization, test suite, and documentation. Follow-up work used AI to quickly iterate on workspace layout and add starter templates, title search, local favorites, duplicate, print, writing statistics, word-processor-style formatting controls, and a more readable default document size.
 
 ## Judgment retained by the developer
 
