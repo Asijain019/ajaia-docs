@@ -1,34 +1,43 @@
-# Submission contents
+# Assignment submission checklist
 
-| Deliverable | Location / status |
+## Included in this repository
+
+| Deliverable | File or directory |
 |---|---|
-| Source code | `src/`, `public/`, `test/` |
-| Local setup, features, demo accounts, deployment notes | `README.md` |
-| Architecture note | `ARCHITECTURE.md` |
-| AI workflow note | `AI_WORKFLOW.md` |
+| Application source | `src/`, `public/` |
+| Automated tests | `test/` |
+| Setup, features, demo accounts, and deployment instructions | `README.md` |
+| Architecture note and system flowcharts | `ARCHITECTURE.md` |
+| AI workflow note and workflow flowchart | `AI_WORKFLOW.md` |
 | Submission checklist | `SUBMISSION.md` |
-| Walkthrough video URL | `VIDEO_URL.txt` (replace placeholder after recording) |
-| Deployment files | `Dockerfile`, `render.yaml` |
-| Dependencies | `package.json`, `package-lock.json` |
+| Docker/Render deployment configuration | `Dockerfile`, `render.yaml` |
+| Dependency manifest and lockfile | `package.json`, `package-lock.json` |
 
-## Links still to add
+The local SQLite database and `node_modules` are intentionally excluded from the repository.
 
-- **Live product:** Deploy first, then add the public URL here.
-- **Walkthrough:** Record a 3–5 minute video and paste its unlisted URL into `VIDEO_URL.txt`.
-- **Google Drive folder:** Create the folder and add its share link when preparing the final submission.
+## Add before final submission
+
+- **Live product URL:** deploy the app and paste the public Render URL here.
+- **Google Drive folder URL:** upload this repository’s source and required documents, then add the share link.
+- **Walkthrough video URL:** after recording your 3–5 minute video, create `VIDEO_URL.txt` containing the unlisted video URL and include it in the Drive folder (and repository if desired).
+- **Screenshots/demo GIF:** include only if reviewers need visual setup guidance; no special setup is currently required.
 
 ## Reviewer access
 
-Choose a demo profile from the sign-in page; no password is required:
+The sign-in page offers these simulated accounts; no password is required:
 
-- Alice Chen — `alice@example.com`
-- Bob Okafor — `bob@example.com`
-- Carol Singh — `carol@example.com`
+| Name | Email |
+|---|---|
+| Alice Chen | `alice@example.com` |
+| Bob Okafor | `bob@example.com` |
+| Carol Singh | `carol@example.com` |
 
-For the sharing flow, sign in as Alice, create a document, share it with Bob as editor or viewer, then sign in as Bob in a separate browser window.
+For the sharing demonstration, sign in as Alice, create a document, share it with Bob as **Can edit** or **Can view**, then sign in as Bob in a separate browser window.
 
-## Status
+## Feature status
 
-**Implemented:** document create/rename/edit/autosave/reopen; formatting; `.txt`, `.md`, and `.docx` import; SQLite persistence; owner/editor/viewer sharing; Markdown export; title search; browser-local favorites; templates; duplicate; print; light/dark appearance; word/character count; server-side validation and sanitization. Six automated tests pass.
+**Working:** create, rename, rich-text edit, autosave, reopen, SQLite persistence, formatting, file import (`.txt`, `.md`, `.docx`), owner/editor/viewer sharing, title search, browser-local favorites, starter templates, duplicate, print, Markdown export, appearance toggle, writing statistics, server-side authorization/sanitization. Six automated tests pass.
 
-**Still required from the submitter:** deploy the application and verify persistent storage, record the walkthrough, add the live/video/Drive URLs, and perform a human browser pass of the new UI and sharing flow.
+**Incomplete:** live deployment and hosted persistence verification, walkthrough recording, real authentication, invitations to unknown users, multi-user live editing, conflict resolution, comments, and version history.
+
+**Next with another 2–4 hours:** deploy and manually verify end-to-end flows; add real authentication/invitations; add version-aware saves; add a browser-level sharing test.

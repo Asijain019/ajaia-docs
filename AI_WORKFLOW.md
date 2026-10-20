@@ -1,11 +1,36 @@
 # AI workflow note
 
-**Tools used:** The initial application draft was created with Claude (chat and code-execution sandbox). GitHub Copilot CLI was used for the follow-up review, diagnosis, UI refinement, and regression test.
+## Tools used
 
-**Where AI helped:** AI accelerated the first Express/SQLite API, HTML sanitizer and file converters, editor UI, and test scaffolding. During the follow-up it helped reshape the interface and implement templates, title search, browser-local favorites, duplicate, print, writing statistics, and word-processor-style font size/color/highlight/alignment controls.
+- **Claude:** helped draft the initial application implementation and first-pass documentation.
+- **GitHub Copilot CLI:** helped inspect and refine the implementation, diagnose a sign-in regression from a user-provided screenshot, improve the interface, extend formatting support, and add regression coverage.
 
-**Judgment and corrections:** The chosen scope remains intentionally small: no frontend framework/build pipeline, built-in Node SQLite, mocked seeded accounts, and role enforcement in server routes. A user-provided browser screenshot exposed missing demo-account buttons when an old cookie was present. The account-list route was made public and a regression test was added. The interface additions reuse the existing API and database instead of adding unrelated services or dependencies.
+## Workflow
 
-The text-formatting controls required extending the HTML sanitizer carefully. Only selected style properties and constrained values are accepted, with a regression test for persisted styles and rejected unsafe CSS.
+```mermaid
+flowchart LR
+    Prompt[Assignment requirements] --> Draft[AI-assisted first draft]
+    Draft --> Inspect[Read the code and inspect the running app]
+    Inspect --> Decide[Human scope and product decisions]
+    Decide --> Implement[Small implementation changes]
+    Implement --> Test[Run automated tests and local smoke checks]
+    Test --> Review[Inspect UX evidence and refine]
+    Review --> Deliver[Document remaining limitations honestly]
+```
 
-**Verification:** `npm test` passes six tests covering role enforcement, validation and sanitization, Markdown upload and conversion, public demo-account loading (including stale cookies), and export access. A local HTTP smoke check confirmed that the app served its page. The redesigned interface still needs a human browser pass, and deployment/persistent storage have not yet been verified. Record any additional manual checks honestly during the walkthrough.
+## Where AI accelerated the work
+
+AI helped scaffold the Express/SQLite API, the initial editor UI, file converters, HTML sanitization, test suite, and documentation. Follow-up work used AI to quickly iterate on workspace layout and add starter templates, title search, local favorites, duplicate, print, writing statistics, and word-processor-style formatting controls.
+
+## Judgment retained by the developer
+
+- Kept the application build-free and used Node’s built-in SQLite rather than adding a framework or hosted database for this time-boxed assignment.
+- Kept authentication explicitly mocked and sharing limited to known demo users; this is easy for reviewers to exercise but is not production security.
+- Kept access enforcement server-side and added allow-list HTML sanitization rather than trusting the browser.
+- A screenshot showed demo accounts missing from the login screen with a stale cookie. The public user-list route was corrected and a regression test added.
+- Rich text styles needed sanitizer changes. Only constrained color, highlight, alignment, and font-size values are now accepted; other CSS is removed.
+- Formatting and UI output were reviewed against the app’s existing API and test behavior rather than accepting generated changes without verification.
+
+## Verification and remaining checks
+
+`npm test` passes six automated tests covering permissions, validation and sanitization, safe style persistence, upload/conversion, stale-cookie demo-account loading, and export access. The local HTTP smoke check confirmed that the static page and demo-user endpoint respond successfully. A person should still manually check text selection formatting, sharing in two browser sessions, and the deployed Render service. Deployment and persistent hosted storage have not yet been verified.
