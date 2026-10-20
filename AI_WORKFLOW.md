@@ -33,4 +33,4 @@ AI helped scaffold the Express/SQLite API, the initial editor UI, file converter
 
 ## Verification and remaining checks
 
-`npm test` passes six automated tests covering permissions, validation and sanitization, safe style persistence, upload/conversion, stale-cookie demo-account loading, and export access. The local HTTP smoke check confirmed that the static page and demo-user endpoint respond successfully. A person should still manually check text selection formatting, sharing in two browser sessions, and the deployed Render service. Deployment and persistent hosted storage have not yet been verified.
+`npm test` passes seven automated tests covering permissions, validation and sanitization, safe style persistence, upload/conversion, stale-cookie demo-account loading, database-directory initialization, and export access. The local HTTP smoke check confirmed that the static page and demo-user endpoint respond successfully. A person should still manually check text selection formatting, sharing in two browser sessions, and the deployed Render service. Deployment and persistent hosted storage have not yet been verified.

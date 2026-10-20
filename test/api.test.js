@@ -1,11 +1,27 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { existsSync, mkdtempSync, rmSync } from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { createApp } from '../src/app.js';
 import { markdownToHtml, clean } from '../src/convert.js';
 
 let server, base;
 test.before(async () => { server = createApp(':memory:').listen(0); base = `http://localhost:${server.address().port}`; });
 test.after(() => server.close());
+
+test('file-backed database creates a missing parent directory', () => {
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'ajaia-docs-db-'));
+  const nestedDb = path.join(dir, 'data', 'nested', 'docs.db');
+  let app;
+  try {
+    app = createApp(nestedDb);
+    assert.equal(existsSync(nestedDb), true);
+  } finally {
+    app?.locals.closeDatabase();
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
 
 const call = (user, path, method = 'GET', body) => fetch(base + '/api' + path, {
   method, headers: { 'Content-Type': 'application/json', Cookie: `uid=${user}` }, body: body ? JSON.stringify(body) : undefined,

@@ -2,6 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import { DatabaseSync } from 'node:sqlite';
 import { randomUUID } from 'node:crypto';
+import { mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { clean, fileToHtml, htmlToMarkdown, ALLOWED_UPLOADS } from './convert.js';
@@ -14,6 +15,7 @@ const SEED_USERS = [
 const httpErr = (status, message) => Object.assign(new Error(message), { status });
 
 export function createApp(dbFile = ':memory:') {
+  if (dbFile !== ':memory:') mkdirSync(path.dirname(path.resolve(dbFile)), { recursive: true });
   const db = new DatabaseSync(dbFile);
   db.exec(`
     CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, name TEXT NOT NULL);
@@ -177,5 +179,6 @@ export function createApp(dbFile = ':memory:') {
     if (status === 500) console.error(err);
     res.status(status).json({ error: err.code === 'LIMIT_FILE_SIZE' ? 'File too large (5 MB max)' : status === 500 ? 'Server error' : err.message });
   });
+  app.locals.closeDatabase = () => db.close();
   return app;
 }

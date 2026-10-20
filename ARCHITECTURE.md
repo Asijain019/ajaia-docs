@@ -33,7 +33,7 @@ flowchart TB
 | `src/server.js` | Starts the Express app and selects the SQLite file |
 | `src/app.js` | SQLite schema, seeded users, authentication simulation, document API, access checks, upload and export endpoints |
 | `src/convert.js` | Plain-text/Markdown/DOCX conversion, HTML sanitization, Markdown export |
-| `test/api.test.js` | Automated API, permission, conversion, persistence, and sanitization tests |
+| `test/api.test.js` | Automated API, permission, conversion, persistence, sanitization, and deployment-path tests |
 | `Dockerfile`, `render.yaml` | Container build and Render Blueprint |
 
 ## Document lifecycle and access
@@ -87,7 +87,7 @@ flowchart LR
     Note -. configure in Render .-> Disk
 ```
 
-The Render Blueprint creates a free web service but does not provision a disk. A persistent disk mounted at `/data` is required for SQLite data to survive service restarts/redeploys; check the current Render plan and pricing. The Vercel serverless filesystem is ephemeral and is not a drop-in storage solution for this SQLite app.
+The server creates the configured SQLite parent directory at startup. The Render Blueprint creates a free web service but does not provision a disk. A persistent disk mounted at `/data` is required for SQLite data to survive service restarts/redeploys; check the current Render plan and pricing. The Vercel serverless filesystem is ephemeral and is not a drop-in storage solution for this SQLite app.
 
 ## Deliberate tradeoffs
 

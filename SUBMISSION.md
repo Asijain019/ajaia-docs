@@ -36,7 +36,7 @@ For the sharing demonstration, sign in as Alice, create a document, share it wit
 
 ## Feature status
 
-**Working:** create, rename, rich-text edit, autosave, reopen, SQLite persistence, formatting, file import (`.txt`, `.md`, `.docx`), owner/editor/viewer sharing, title search, browser-local favorites, starter templates, duplicate, print, Markdown export, appearance toggle, writing statistics, server-side authorization/sanitization. Six automated tests pass.
+**Working:** create, rename, rich-text edit, autosave, reopen, SQLite persistence, formatting, file import (`.txt`, `.md`, `.docx`), owner/editor/viewer sharing, title search, browser-local favorites, starter templates, duplicate, print, Markdown export, appearance toggle, writing statistics, server-side authorization/sanitization, and automatic creation of the configured database directory. Seven automated tests pass.
 
 **Incomplete:** live deployment and hosted persistence verification, walkthrough recording, real authentication, invitations to unknown users, multi-user live editing, conflict resolution, comments, and version history.
 

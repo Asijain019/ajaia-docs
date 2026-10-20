@@ -95,7 +95,7 @@ The repository includes a Dockerfile and a Render Blueprint file. Render is the 
 1. Push the repository to GitHub. The current public source repository is [Asijain019/ajaia-docs](https://github.com/Asijain019/ajaia-docs).
 2. In Render, choose **New → Blueprint**, connect that repository, and deploy the detected `render.yaml`.
 3. Wait for the service to finish deploying, then open its `onrender.com` URL and try the Alice/Bob sharing flow.
-4. The container is configured to store SQLite at `/data/data.db`. For data to survive service restarts or redeploys, attach a persistent disk mounted at `/data` using a Render plan that supports disks. Check the current plan and disk pricing in Render before enabling one.
+4. The server now creates the SQLite parent directory on startup. The container stores the database at `/data/data.db`. For data to survive service restarts or redeploys, attach a persistent disk mounted at `/data` using a Render plan that supports disks. Check the current plan and disk pricing in Render before enabling one.
 5. Add the final live URL to `SUBMISSION.md` and your Google Drive submission folder.
 
 The included Blueprint uses the free web-service plan and does **not** create a persistent disk. Without a disk, SQLite data may be lost when the service restarts or redeploys. The public demo login is not real authentication; do not treat this deployment as a production or private-document service.
@@ -112,7 +112,7 @@ git push origin master
 
 ## Automated checks
 
-`npm test` runs six tests covering document access and sharing roles, validation and HTML sanitization, safe rich-text style persistence, Markdown import and conversion, public demo-account loading (including stale cookies), and Markdown export access.
+`npm test` runs seven tests covering document access and sharing roles, validation and HTML sanitization, safe rich-text style persistence, Markdown import and conversion, public demo-account loading (including stale cookies), file-backed database setup, and Markdown export access.
 
 ## Known limitations and next steps
 
